@@ -41,7 +41,7 @@ public static class Solution
             _ => throw new ArgumentOutOfRangeException()
         });
 
-        // Console.WriteLine(score);
+        Console.WriteLine(score);
         Console.WriteLine(score2);
     }
 }
