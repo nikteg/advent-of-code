@@ -15,11 +15,9 @@ public static class Solution
 
     private static int GetMarker(string input, int characterCount)
     {
-        var span = input.AsSpan();
-
-        for (var i = 0; i < span.Length - characterCount; i++)
+        for (var i = 0; i < input.Length - characterCount; i++)
         {
-            if (span.Slice(i, characterCount).ToImmutableArray().Distinct().Count() == characterCount)
+            if (input[i..(i + characterCount)].Distinct().Count() == characterCount)
             {
                 return i + characterCount;
             }
