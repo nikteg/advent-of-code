@@ -4,4 +4,5 @@
 // adventofcode.Day4.Solution.Solve();
 // adventofcode.Day5.Solution.Solve();
 // adventofcode.Day6.Solution.Solve();
-adventofcode.Day7.Solution.Solve();
+// adventofcode.Day7.Solution.Solve();
+adventofcode.Day8.Solution.Solve();
