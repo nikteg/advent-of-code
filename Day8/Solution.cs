@@ -29,8 +29,12 @@ public static class Solution
 
         // forest.Print();
 
-        Console.WriteLine();
-        Console.WriteLine(forest.GetVisibleTreeCount());
+        // Console.WriteLine();
+        // Console.WriteLine(forest.GetVisibleTreeCount());
+
+        Console.WriteLine(forest.GetBestScenicScore());
+
+        // Console.WriteLine(forest.GetScenicScore(new Tree(2, 3, 5)));
     }
 }
 
@@ -70,9 +74,48 @@ public class Grid
         }
     }
 
+    public int GetBestScenicScore()
+    {
+        return Trees.Max(GetScenicScore);
+    }
+
+    private int GetScenicScore(Tree t)
+    {
+        var up = Trees
+            .OrderByDescending(t2 => t2.Y)
+            .Where(t2 => t2.X == t.X && t2.Y < t.Y);
+        var down = Trees
+            .OrderBy(t2 => t2.Y)
+            .Where(t2 => t2.X == t.X && t2.Y > t.Y);
+        var left = Trees
+            .OrderByDescending(t2 => t2.X)
+            .Where(t2 => t2.Y == t.Y && t2.X < t.X);
+        var right = Trees
+            .OrderBy(t2 => t2.X)
+            .Where(t2 => t2.Y == t.Y && t2.X > t.X);
+
+        // Console.WriteLine($"{Distance(t, up)}x{Distance(t, left)}x{Distance(t, down)}x{Distance(t, right)}");
+
+        return Distance(t, up) * Distance(t, down) * Distance(t, left) * Distance(t, right);
+    }
+
+    private static int Distance(Tree t, IEnumerable<Tree> trees)
+    {
+        var count = 0;
+        foreach (var t2 in trees)
+        {
+            count += 1;
+            if (t2.Height >= t.Height)
+            {
+                return count;
+            }
+        }
+
+        return count;
+    }
+
     private bool IsTreeVisible(Tree t)
     {
-
         if (t.X == 0 || t.X == _width - 1 || t.Y == 0 || t.Y == _height - 1)
         {
             return true;
@@ -87,7 +130,7 @@ public class Grid
         {
             return true;
         }
-        
+
         if (Trees.Where(t2 => t2.Y > t.Y && t2.X == t.X).All(t2 => t2.Height < t.Height))
         {
             return true;
