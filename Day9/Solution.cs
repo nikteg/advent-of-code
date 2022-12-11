@@ -16,7 +16,8 @@ public static class Solution
         // U 20
         // """;
 
-        var snake = new Snake(9);
+        const bool part2 = true;
+        var snake = new Snake(part2 ? 9 : 1);
 
         foreach (var line in input.TrimEnd().Split("\n"))
         {
@@ -45,43 +46,17 @@ public static class Solution
 
         public void Move(char direction, int steps)
         {
-            for (var i = 0; i < steps; i++)
+            foreach (var _ in Enumerable.Range(0, steps))
             {
                 Head.Move(direction);
+                
                 foreach (var tail in Tails)
                 {
-                    tail.Move();
+                    tail.Follow();
                 }
 
                 Visited.Add(Tails.Last().Position);
             }
-        }
-
-        public void Print()
-        {
-            for (var y = -4; y < 1; y++)
-            {
-                for (var x = 0; x < 6; x++)
-                {
-                    if (Head.Position.X == x && Head.Position.Y == y)
-                    {
-                        Console.Write("H");
-                    }
-                    else if (Tails.Any(t => t.Position.X == x && t.Position.Y == y))
-                    {
-                        Console.Write("T");
-                    }
-                    else
-                    {
-                        Console.Write(".");
-                    }
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
-            Console.WriteLine();
         }
 
         public void PrintVisitedCount()
@@ -132,100 +107,16 @@ public static class Solution
             Parent = parent;
         }
 
-        public void Move()
+        public void Follow()
         {
-            // ..H
-            // ..X
-            // .T.
-            if (Parent.Position.X > Position.X && Parent.Position.Y < Position.Y - 1)
-            {
-                Position.X++;
-                Position.Y--;
-            }
-            // H..
-            // X..
-            // .T.
-            else if (Parent.Position.X < Position.X && Parent.Position.Y < Position.Y - 1)
-            {
-                Position.X--;
-                Position.Y--;
-            }
-            // .T.
-            // ..X
-            // ..H
-            else if (Parent.Position.X > Position.X && Parent.Position.Y > Position.Y + 1)
-            {
-                Position.X++;
-                Position.Y++;
-            }
-            // .T.
-            // X..
-            // H..
-            else if (Parent.Position.X < Position.X && Parent.Position.Y > Position.Y + 1)
-            {
-                Position.X--;
-                Position.Y++;
-            }
-            // ..T
-            // HX.
-            // ...
-            else if (Parent.Position.Y > Position.Y && Parent.Position.X < Position.X - 1)
-            {
-                Position.X--;
-                Position.Y++;
-            }
-            // ...
-            // HX.
-            // ..T
-            else if (Parent.Position.Y < Position.Y && Parent.Position.X < Position.X - 1)
-            {
-                Position.X--;
-                Position.Y--;
-            }
-            // T..
-            // .XH
-            // ...
-            else if (Parent.Position.Y > Position.Y && Parent.Position.X > Position.X + 1)
-            {
-                Position.X++;
-                Position.Y++;
-            }
-            // ...
-            // .XH
-            // T..
-            else if (Parent.Position.Y < Position.Y && Parent.Position.X > Position.X + 1)
-            {
-                Position.X++;
-                Position.Y--;
-            }
-            // ...
-            // TXH
-            // ...
-            else if (Parent.Position.X > Position.X + 1)
-            {
-                Position.X++;
-            }
-            // ...
-            // HXT
-            // ...
-            else if (Parent.Position.X < Position.X - 1)
-            {
-                Position.X--;
-            }
-            // .T.
-            // .X.
-            // .H.
-            else if (Parent.Position.Y > Position.Y + 1)
-            {
-                Position.Y++;
-            }
-            // .H.
-            // .X.
-            // .T.
-            else if (Parent.Position.Y < Position.Y - 1)
-            {
-                Position.Y--;
-            }
+            var dx = Parent.Position.X - Position.X;
+            var dy = Parent.Position.Y - Position.Y;
+            var distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
+
+            if (distance <= 1) return;
+            
+            Position.X += Math.Sign(dx);
+            Position.Y += Math.Sign(dy);
         }
     }
 }
