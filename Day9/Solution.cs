@@ -36,7 +36,7 @@ public static class Solution
         public Snake(int length)
         {
             Part parent = Head;
-            for (var i = 0; i < length; i++)
+            foreach (var _ in Enumerable.Range(0, length))
             {
                 var tail = new Tail(parent);
                 Tails.Add(tail);
@@ -49,7 +49,7 @@ public static class Solution
             foreach (var _ in Enumerable.Range(0, steps))
             {
                 Head.Move(direction);
-                
+
                 foreach (var tail in Tails)
                 {
                     tail.Follow();
@@ -114,7 +114,7 @@ public static class Solution
             var distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
 
             if (distance <= 1) return;
-            
+
             Position.X += Math.Sign(dx);
             Position.Y += Math.Sign(dy);
         }
