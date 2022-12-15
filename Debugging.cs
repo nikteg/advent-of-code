@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace adventofcode;
 
@@ -12,5 +13,10 @@ public static class Debugging
         {
             Console.WriteLine($"({conditionName} = {condition}) != {expectedName}");
         }
+    }
+
+    public static void Dump(object obj)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(obj));
     }
 }
