@@ -1,4 +1,3 @@
-using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 
@@ -35,29 +34,39 @@ public static class Solution
 //          [1,[2,[3,[4,[5,6,0]]]],8,9]
 //          """;
 
-        var rightOrderPairs = new HashSet<int>();
-        var index = 0;
-        foreach (var groups in input.TrimEnd().Split("\n\n"))
+        // var rightOrderPairs = new HashSet<int>();
+        // var index = 0;
+        // foreach (var groups in input.TrimEnd().Split("\n\n"))
+        // {
+        //     var line = groups.Split("\n");
+        //     var left = JsonNode.Parse(line[0])!;
+        //     var right = JsonNode.Parse(line[1])!;
+        //
+        //     index++;
+        //
+        //     // if (index == 3)
+        //     {
+        //         Console.WriteLine($"== Pair {index} ==");
+        //         if (Walk(left, right) == Ordering.Lt)
+        //         {
+        //             rightOrderPairs.Add(index);
+        //         }
+        //         Console.WriteLine();
+        //     }
+        // }
+        //
+        // Debugging.Dump(rightOrderPairs);
+        // Debugging.Dump(rightOrderPairs.Sum());
+        
+        var lines = input.TrimEnd().Split("\n\n").SelectMany(l => l.Split("\n").Select(q => JsonNode.Parse(q)!)).ToList();
+        lines.Sort((a, b) => (int)Walk(a, b));
+        // Debugging.Dump(lines);
+
+        foreach (var jn in lines)
         {
-            var line = groups.Split("\n");
-            var left = JsonNode.Parse(line[0])!;
-            var right = JsonNode.Parse(line[1])!;
-
-            index++;
-
-            // if (index == 3)
-            {
-                Console.WriteLine($"== Pair {index} ==");
-                if (Walk(left, right) == Ordering.Lt)
-                {
-                    rightOrderPairs.Add(index);
-                }
-                Console.WriteLine();
-            }
+            Debugging.Dump(jn);
+            // Find [[2]] and [[6]] in a file
         }
-
-        Debugging.Dump(rightOrderPairs);
-        Debugging.Dump(rightOrderPairs.Sum());
     }
 
     private static Ordering Walk(JsonNode? left, JsonNode? right)
@@ -124,9 +133,9 @@ public static class Solution
 
 public enum Ordering
 {
-    Lt,
-    Gt,
-    Eq
+    Lt = -1,
+    Eq = 0,
+    Gt = 1,
 }
 
 public static class JsonExtensions
