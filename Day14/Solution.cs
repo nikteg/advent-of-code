@@ -34,15 +34,24 @@ public static class Solution
             }
         }
 
-        var sandCount = map.SimulateSand();
+        // var sandCount = map.SimulateSand();
+        var sandCount2 = map.SimulateSandPart2();
+        // map.PrintGrid();
 
-        Console.WriteLine(sandCount);
+        // Console.WriteLine(sandCount);
+        Console.WriteLine(sandCount2);
     }
+}
+
+public enum Material
+{
+    Sand,
+    Rock
 }
 
 public class Map
 {
-    private readonly HashSet<(int, int)> _grid = new();
+    private readonly Dictionary<(int, int), Material> _grid = new();
     private int _floorLevel;
 
     public void AddRockLine((int x, int y) v1, (int x, int y) v2)
@@ -68,17 +77,24 @@ public class Map
 
         foreach (var v in Enumerable.Range(min, diff))
         {
-            _grid.Add(adder(v));
+            _grid.TryAdd(adder(v), Material.Rock);
         }
     }
 
     public void PrintGrid()
     {
-        foreach (var y in Enumerable.Range(0, 10))
+        foreach (var y in Enumerable.Range(0, 12))
         {
-            foreach (var x in Enumerable.Range(493, 12))
+            foreach (var x in Enumerable.Range(488, 28))
             {
-                Console.Write(_grid.Contains((x, y)) ? "#" : " ");
+                var isSolid = _grid.TryGetValue((x, y), out var material);
+                Console.Write(
+                    isSolid
+                        ? material == Material.Sand
+                            ? "o"
+                            : "#"
+                        : "."
+                );
             }
             Console.WriteLine();
         }
@@ -91,15 +107,15 @@ public class Map
             var x = 500;
             var y = 0;
 
-            while (!_grid.Contains((x, y + 1)))
+            while (!_grid.ContainsKey((x, y + 1)))
             {
-                if (_grid.Contains((x, y + 2)))
+                if (_grid.ContainsKey((x, y + 2)))
                 {
-                    if (!_grid.Contains((x - 1, y + 2)))
+                    if (!_grid.ContainsKey((x - 1, y + 2)))
                     {
                         x--;
                     }
-                    else if (!_grid.Contains((x + 1, y + 2)))
+                    else if (!_grid.ContainsKey((x + 1, y + 2)))
                     {
                         x++;
                     }
@@ -107,14 +123,50 @@ public class Map
 
                 y++;
 
-                if (y == _floorLevel)
+                if (y > _floorLevel)
                 {
                     return sandCount;
                 }
             }
 
-            _grid.Add((x, y));
+            _grid.Add((x, y), Material.Sand);
             sandCount += 1;
+        }
+    }
+
+    public int SimulateSandPart2(int sandCount = 0)
+    {
+        while (true)
+        {
+            var x = 500;
+            var y = -1;
+
+            var infiniteFloorLevel = _floorLevel + 2;
+
+            while (!_grid.ContainsKey((x, y + 1)) && y + 1 < infiniteFloorLevel)
+            {
+                if (_grid.ContainsKey((x, y + 2)))
+                {
+                    if (!_grid.ContainsKey((x - 1, y + 2)))
+                    {
+                        x--;
+                    }
+                    else if (!_grid.ContainsKey((x + 1, y + 2)))
+                    {
+                        x++;
+                    }
+                }
+
+                y++;
+            }
+
+            _grid.Add((x, y), Material.Sand);
+            sandCount += 1;
+
+            if (x == 500 && y == 0)
+            {
+                return sandCount;
+            }
         }
     }
 }
