@@ -11,4 +11,5 @@
 // adventofcode.Day11.Solution.Solve();
 // adventofcode.Day12.Solution.Solve();
 // adventofcode.Day13.Solution.Solve();
-adventofcode.Day14.Solution.Solve();
+// adventofcode.Day14.Solution.Solve();
+adventofcode.Day15.Solution.Solve();
