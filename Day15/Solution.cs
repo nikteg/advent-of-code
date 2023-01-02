@@ -48,7 +48,6 @@ public static class Solution
         // var count = map.GetImpossiblePositions(10);
         var count = map.GetImpossiblePositions(2000000);
         Console.WriteLine(count);
-        // var distressSignalTuningFrequency = map.GetDistressSignal(20);
         var distressSignalTuningFrequency = map.GetDistressSignal(40_00_000);
         Console.WriteLine(distressSignalTuningFrequency);
     }
@@ -100,13 +99,7 @@ public class Map
                 {
                     if (GetDistance(x, y, sensor.x, sensor.y) <= sensor.range)
                     {
-                        var k = Math.Sign(x - sensor.x) * -Math.Sign(y - sensor.y);
-                        var dy = Math.Abs(y - sensor.y);
-
-                        // y = k * x + m
-                        // or in this case, x = k * y + m
-
-                        x = sensor.x + (k * dy + sensor.range) + 1;
+                        x = sensor.x - Math.Abs(sensor.y - y) + sensor.range + 1;
 
                         found = true;
                         break;
