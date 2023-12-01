@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aoc2022", "2022\aoc2022.csproj", "{7D95FDC1-4E0F-4F33-86EC-C41B58715134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared", "shared\shared\shared.csproj", "{E56EFB7E-62B2-4976-98AC-C213866A8A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aoc2023", "2023\aoc2023.csproj", "{30853581-AAD3-439B-AF61-36B5FECE8177}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D95FDC1-4E0F-4F33-86EC-C41B58715134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D95FDC1-4E0F-4F33-86EC-C41B58715134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D95FDC1-4E0F-4F33-86EC-C41B58715134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D95FDC1-4E0F-4F33-86EC-C41B58715134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56EFB7E-62B2-4976-98AC-C213866A8A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56EFB7E-62B2-4976-98AC-C213866A8A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56EFB7E-62B2-4976-98AC-C213866A8A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56EFB7E-62B2-4976-98AC-C213866A8A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30853581-AAD3-439B-AF61-36B5FECE8177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30853581-AAD3-439B-AF61-36B5FECE8177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30853581-AAD3-439B-AF61-36B5FECE8177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30853581-AAD3-439B-AF61-36B5FECE8177}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
