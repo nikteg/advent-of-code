@@ -1,5 +1,3 @@
-using shared;
-
 namespace aoc2023.Day3;
 
 public static class Solution
