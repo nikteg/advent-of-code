@@ -61,7 +61,7 @@ public static class Solution
                         }
                         else
                         {
-                            gearNumbers.Add((ky, kx), new List<int> { n.Value });
+                            gearNumbers.Add((ky, kx), [n.Value]);
                         }
                     }
                 }
