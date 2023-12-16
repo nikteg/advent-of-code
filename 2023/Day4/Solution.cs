@@ -58,7 +58,7 @@ public static class Solution
         var lines = input.Split("\n");
         var sum = 0;
         var cards = new Dictionary<int, int>();
-        var cardQueue = new Queue<int>();
+        var stack = new Stack<int>();
 
         var id = 1;
         foreach (var line in lines)
@@ -77,17 +77,17 @@ public static class Solution
             var count = winning.Intersect(numbers).Count();
 
             cards[id] = count;
-            cardQueue.Enqueue(id);
+            stack.Push(id);
             id++;
         }
 
-        while (cardQueue.Count > 0)
+        while (stack.Count > 0)
         {
-            var idx = cardQueue.Dequeue();
+            var idx = stack.Pop();
             var count = cards[idx];
 
             for (var i = 1; i <= count; i++)
-                cardQueue.Enqueue(idx + i);
+                stack.Push(idx + i);
 
             sum += 1;
         }
